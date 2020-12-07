@@ -2,8 +2,6 @@
 
 Fork from: https://github.com/czs108/Cpp-Primer-5th-Notes-CN
 
-![Cover](Cover.png)
-
 ## 目录
 
 [第 1 章 开始](https://github.com/czs108/Cpp-Primer-5th-Note-CN/tree/master/Chapter-1%20Getting%20Started)
