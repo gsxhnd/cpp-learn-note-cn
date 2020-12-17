@@ -1,6 +1,6 @@
 # 第 3 章 字符串、向量和数组
 
-## 命名空间的 using 声明（Namespace using Declarations）
+## 3.1.1 命名空间的 using 声明（Namespace using Declarations）
 
 使用`using`声明后就无须再通过专门的前缀去获取所需的名字了。
 
@@ -12,11 +12,11 @@ using std::cout;
 
 头文件中通常不应该包含`using`声明。
 
-## 标准库类型 string（Library string Type）
+## 3.1.2 标准库类型 string（Library string Type）
 
 标准库类型`string`表示可变长的字符序列，定义在头文件*string*中。
 
-### 定义和初始化 string 对象（Defining and Initializing strings）
+### 3.1.3 定义和初始化 string 对象（Defining and Initializing strings）
 
 初始化`string`的方式：
 
