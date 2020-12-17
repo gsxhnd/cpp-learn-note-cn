@@ -616,3 +616,19 @@ struct Sales_data
 
 # 第三章 字符串、向量和数组
 
+## 3.1 命名空间的using声明 (Namespace using Declarations)
+
+使用`using`声明后就无须再通过专门的前缀去获取所需的名字了。
+
+```c++
+using std::cout;
+```
+
+程序中使用的每个名字都需要用独立的`using`声明引入。
+
+头文件中通常不应该包含`using`声明。
+
+## 3.2 标准库类型string (Library string Type)
+
+标准库类型`string`表示可变长的字符序列，定义在头文件**string**中。
+
