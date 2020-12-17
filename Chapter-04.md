@@ -1,10 +1,10 @@
 # 第 4 章 表达式 (Expressions)
 
-## 基础（Fundamentals）
+## 4.1 基础（Fundamentals）
 
 表达式（expression）由一个或多个运算对象（operand）组成，对表达式求值将得到一个结果（result）。字面值和变量是最简单的表达式，其结果就是字面值和变量的值。
 
-### 基础概念（Basic Concepts）
+### 4.1.1 基础概念（Basic Concepts）
 
 C++定义了一元运算符（unary operator）和二元运算符（binary operator）。除此之外，还有一个作用于三个运算对象的三元运算符。函数调用也是一种特殊的运算符，它对运算对象的数量没有限制。
 
@@ -21,13 +21,13 @@ C++的表达式分为右值（rvalue）和左值（lvalue）。当一个对象�
 
 如果`decltype`作用于一个求值结果是左值的表达式，会得到引用类型。
 
-### 优先级与结合律（Precedence and Associativity）
+### 4.1.2 优先级与结合律（Precedence and Associativity）
 
 复合表达式（compound expression）指含有两个或多个运算符的表达式。优先级与结合律决定了运算对象的组合方式。
 
 括号无视优先级与结合律，表达式中括号括起来的部分被当成一个单元来求值，然后再与其他部分一起按照优先级组合。
 
-### 求值顺序（Order of Evaluation）
+### 4.1.3 求值顺序（Order of Evaluation）
 
 对于那些没有指定执行顺序的运算符来说，如果表达式指向并修改了同一个对象，将会引发错误并产生未定义的行为。
 
@@ -43,7 +43,7 @@ cout << i << " " << ++i << endl;    // undefined
 
 当改变运算对象的子表达式本身就是另一个子表达式的运算对象时，第二条规则无效。如`*++iter`，递增运算符改变了*iter*的值，而改变后的*iter*又是解引用运算符的运算对象。类似情况下，求值的顺序不会成为问题。
 
-## 算术运算符（Arithmetic Operators）
+## 4.2 算术运算符（Arithmetic Operators）
 
 算术运算符（左结合律）：
 
@@ -51,7 +51,7 @@ cout << i << " " << ++i << endl;    // undefined
 
 在除法运算中，C++语言的早期版本允许结果为负数的商向上或向下取整，C++11 新标准则规定商一律向 0 取整（即直接去除小数部分）。
 
-## 逻辑和关系运算符（Logical and Relational Operators）
+## 4.3 逻辑和关系运算符（Logical and Relational Operators）
 
 关系运算符作用于算术类型和指针类型，逻辑运算符作用于任意能转换成布尔值的类型。逻辑运算符和关系运算符的返回值都是布尔类型。
 
@@ -64,7 +64,7 @@ cout << i << " " << ++i << endl;    // undefined
 
 进行比较运算时，除非比较的对象是布尔类型，否则不要使用布尔字面值`true`和`false`作为运算对象。
 
-## 赋值运算符（Assignment Operators）
+## 4.4 赋值运算符（Assignment Operators）
 
 赋值运算符`=`的左侧运算对象必须是一个可修改的左值。
 
@@ -88,7 +88,7 @@ ival = jval = 0;    // ok: each assigned 0
 
 复合赋值运算符包括`+=`、`-=`、`*=`、`/=`、`%=`、`<<=`、`>>=`、`&=`、`^=`和`|=`。任意一种复合运算都完全等价于*a = a op b*。
 
-## 递增和递减运算符（Increment and Decrement Operators）
+## 4.5 递增和递减运算符（Increment and Decrement Operators）
 
 递增和递减运算符是为对象加 1 或减 1 的简洁书写形式。很多不支持算术运算的迭代器可以使用递增和递减运算符。
 
@@ -111,7 +111,7 @@ j = i++;    // j = 1, i = 2: postfix yields the unincremented value
 cout << *iter++ << endl;
 ```
 
-## 成员访问运算符（The Member Access Operators）
+## 4.6 成员访问运算符（The Member Access Operators）
 
 点运算符`.`和箭头运算符`->`都可以用来访问成员，表达式`ptr->mem`等价于`(*ptr).mem`。
 
@@ -122,7 +122,7 @@ n = (*p).size();    // run size on the object to which p points
 n = p->size();      // equivalent to (*p).size()
 ```
 
-## 条件运算符（The Conditional Operator）
+## 4.7 条件运算符（The Conditional Operator）
 
 条件运算符的使用形式如下：
 
@@ -138,7 +138,7 @@ cond ? expr1 : expr2;
 
 条件运算符的优先级非常低，因此当一个长表达式中嵌套了条件运算子表达式时，通常需要在它两端加上括号。
 
-## 位运算符（The Bitwise Operators）
+## 4.8 位运算符（The Bitwise Operators）
 
 位运算符（左结合律）：
 
@@ -148,7 +148,7 @@ cond ? expr1 : expr2;
 
 左移运算符`<<`在运算对象右侧插入值为 0 的二进制位。右移运算符`>>`的行为依赖于其左侧运算对象的类型：如果该运算对象是无符号类型，在其左侧插入值为 0 的二进制位；如果是带符号类型，在其左侧插入符号位的副本或者值为 0 的二进制位，如何选择视具体环境而定。
 
-## sizeof 运算符（The sizeof Operator）
+## 4.9 sizeof 运算符（The sizeof Operator）
 
 `sizeof`运算符返回一个表达式或一个类型名字所占的字节数，返回值是`size_t`类型。
 
@@ -163,7 +163,7 @@ cond ? expr1 : expr2;
 - 对数组执行`sizeof`运算得到整个数组所占空间的大小。
 - 对`string`或`vector`对象执行`sizeof`运算只返回该类型固定部分的大小，不会计算对象中元素所占空间的大小。
 
-## 逗号运算符（Comma Operator）
+## 4.10 逗号运算符（Comma Operator）
 
 逗号运算符`,`含有两个运算对象，按照从左向右的顺序依次求值，最后返回右侧表达式的值。逗号运算符经常用在`for`循环中。
 
@@ -174,17 +174,17 @@ for(vector<int>::size_type ix = 0; ix != ivec.size(); ++ix, --cnt)
     ivec[ix] = cnt;
 ```
 
-## 类型转换（Type Conversions）
+## 4.11 类型转换（Type Conversions）
 
 无须程序员介入，会自动执行的类型转换叫做隐式转换（implicit conversions）。
 
-### 算术转换（Integral Promotions）
+### 4.11.1 算术转换（Integral Promotions）
 
 把一种算术类型转换成另一种算术类型叫做算术转换。
 
 整型提升（integral promotions）负责把小整数类型转换成较大的整数类型。
 
-### 其他隐式类型转换（Other Implicit Conversions）
+### 4.11.2 其他隐式类型转换（Other Implicit Conversions）
 
 在大多数表达式中，数组名字自动转换成指向数组首元素的指针。
 
@@ -194,7 +194,7 @@ for(vector<int>::size_type ix = 0; ix != ivec.size(); ++ix, --cnt)
 
 指向非常量类型的指针能转换成指向相应的常量类型的指针。
 
-### 显式转换（Explicit Conversions）
+### 4.11.3 显式转换（Explicit Conversions）
 
 显式类型转换也叫做强制类型转换（cast）。虽然有时不得不使用强制类型转换，但这种方法本质上是非常危险的。建议尽量避免强制类型转换。
 
