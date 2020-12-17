@@ -393,7 +393,7 @@ cout << "default bool values: " << true << " " << false
 
 输出：
 
-```
+```bash
 default bool values: 1 0
 alpha bool values: true false
 ```
@@ -409,7 +409,7 @@ cout << "decimal: " << dec << 20 << " " << 1024 << endl;
 
 输出：
 
-```
+```bash
 default: 20 1024
 octal: 24 2000
 hex: 14 400
@@ -437,7 +437,7 @@ cout << noshowbase;   // reset the state of the stream
 
 输出：
 
-```
+```bash
 default: 20 1024
 in octal: 024 02000
 in hex: 0x14 0x400
@@ -454,7 +454,7 @@ cout << uppercase << showbase << hex
 
 输出：
 
-```
+```bash
 printed in hexadecimal: 0X14 0X400
 ```
 
@@ -491,7 +491,7 @@ cout << "Precision: " << cout.precision()
 
 输出：
 
-```
+```bash
 Precision: 6, Value: 1.41421
 Precision: 12, Value: 1.41421356237
 Precision: 3, Value: 1.41
@@ -520,7 +520,7 @@ cout << "default format: " << 100 * sqrt(2.0) << '\n'
 
 输出：
 
-```
+```bash
 default format: 141.421
 scientific: 1.414214e+002
 fixed decimal: 141.421356
@@ -576,7 +576,7 @@ cout << setfill('#')
 
 输出：
 
-```
+```bash
 i: -16next col
 d: 3.14159next col
 i: -16 next col

@@ -638,15 +638,14 @@ s2 = std::move(s1);     // ok: but after the assigment s1 has indeterminate valu
 
 - 在`std::move(string("bye!"))`中传递的是右值。
 
-- - 推断出的*T*类型为`string`。
+  - 推断出的*T*类型为`string`。
   - `remove_reference`用`string`进行实例化。
   - `remove_reference<string>`的`type`成员是`string`。
   - `move`的返回类型是`string&&`。
   - `move`的函数参数*t*的类型为`string&&`。
 
 - 在`std::move(s1)`中传递的是左值。
-
-- - 推断出的*T*类型为`string&`。
+  - 推断出的*T*类型为`string&`。
   - `remove_reference`用`string&`进行实例化。
   - `remove_reference<string&>`的`type`成员是`string`。
   - `move`的返回类型是`string&&`。
