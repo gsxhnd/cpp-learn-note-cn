@@ -1,11 +1,11 @@
-# 第1章 开始
+# 第 1 章 开始
 
 最简单的`main`函数：
 
 ```c++
-int main()
+void main()
 {
-    return 0;
+    return;
 }
 ```
 

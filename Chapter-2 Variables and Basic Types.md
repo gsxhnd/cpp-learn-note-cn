@@ -1,8 +1,8 @@
 # 第 2 章 变量和基本类型
 
-## 基本内置类型（Primitive Built-in Types）
+## 2.1 基本内置类型 (Primitive Built-in Types)
 
-### 算数类型（Arithmetic Types）
+### 2.1.1 算数类型 (Arithmetic Types)
 
 算数类型分为两类：整型（integral type）、浮点型（floating-point type）。
 
@@ -30,7 +30,7 @@
 
 - 执行浮点数运算时建议使用`double`类型。
 
-### 类型转换（Type Conversions）
+### 2.1.2 类型转换 (Type Conversions)
 
 进行类型转换时，类型所能表示的值的范围决定了转换的过程。
 
@@ -64,7 +64,7 @@ while (u > 0)
 
 不要混用带符号类型和无符号类型。
 
-### 字面值常量（Literals）
+### 2.1.3 字面值常量 (Literals)
 
 以`0`开头的整数代表八进制（octal）数，以`0x`或`0X`开头的整数代表十六进制（hexadecimal）数。在 C++14 中，`0b`或`0B`开头的整数代表二进制（binary）数。
 
@@ -118,9 +118,9 @@ std::cout << '\115' << '\n';    // prints M followed by a newline
 
 使用一个长整型字面值时，最好使用大写字母`L`进行标记，小写字母`l`和数字`1`容易混淆。
 
-## 变量（Variables）
+## 2.2 变量 (Variables)
 
-### 变量定义（Variable Definitions）
+### 2.2.1 变量定义 (Variable Definitions)
 
 变量定义的基本形式：类型说明符（type specifier）后紧跟由一个或多个变量名组成的列表，其中变量名以逗号分隔，最后以分号结束。定义时可以为一个或多个变量赋初始值（初始化，initialization）。
 
@@ -142,7 +142,7 @@ int c(ld), d = ld;      // ok: but value will be truncated
 
 建议初始化每一个内置类型的变量。
 
-### 变量声明和定义的关系（Variable Declarations and Definitions）
+### 2.2.2 变量声明和定义的关系 (Variable Declarations and Definitions)
 
 声明（declaration）使得名字为程序所知。一个文件如果想使用其他地方定义的名字，则必须先包含对那个名字的声明。
 
@@ -161,13 +161,13 @@ int j;      // declares and defines j
 
 如果要在多个文件中使用同一个变量，就必须将声明和定义分开。此时变量的定义必须出现且只能出现在一个文件中，其他使用该变量的文件必须对其进行声明，但绝对不能重复定义。
 
-### 标识符（Identifiers）
+### 2.2.3 标识符 (Identifiers)
 
 C++的标识符由字母、数字和下划线组成，其中必须以字母或下划线开头。标识符的长度没有限制，但是对大小写字母敏感。C++为标准库保留了一些名字。用户自定义的标识符不能连续出现两个下划线，也不能以下划线紧连大写字母开头。此外，定义在函数体外的标识符不能以下划线开头。
 
 ![2-3](./Images/2-3.png)
 
-### 名字的作用域（Scope of a Name）
+### 2.2.4 名字的作用域 (Scope of a Name)
 
 定义在函数体之外的名字拥有全局作用域（global scope）。声明之后，该名字在整个程序范围内都可使用。
 
@@ -198,9 +198,9 @@ int main()
 
 如果函数有可能用到某个全局变量，则不宜再定义一个同名的局部变量。
 
-## 复合类型（Compound Type）
+## 2.3 复合类型 (Compound Type)
 
-### 引用（References）
+### 2.3.1 引用 (References)
 
 引用为对象起了另外一个名字，引用类型引用（refers to）另外一种类型。通过将声明符写成`&d`的形式来定义引用类型，其中*d*是变量名称。
 
@@ -218,7 +218,7 @@ int &refVal2;       // error: a reference must be initialized
 
 引用只能绑定在对象上，不能与字面值或某个表达式的计算结果绑定在一起。
 
-### 指针（Pointer）
+### 2.3.2 指针 (Pointer)
 
 与引用类似，指针也实现了对其他对象的间接访问。
 
@@ -279,7 +279,7 @@ int *p3 = NULL;     // equivalent to int *p3 = 0;
 
 `void*`是一种特殊的指针类型，可以存放任意对象的地址，但不能直接操作`void*`指针所指的对象。
 
-### 理解复合类型的声明（Understanding Compound Type Declarations）
+### 2.3.3 理解复合类型的声明 (Understanding Compound Type Declarations)
 
 指向指针的指针（Pointers to Pointers）：
 
@@ -303,7 +303,7 @@ r = &i;         // r refers to a pointer; assigning &i to r makes p point to i
 
 面对一条比较复杂的指针或引用的声明语句时，从右向左阅读有助于弄清它的真实含义。
 
-## const 限定符（Const Qualifier）
+## 2.4 const 限定符 (Const Qualifier)
 
 在变量类型前添加关键字`const`可以创建值不能被改变的对象。`const`变量必须被初始化。
 
@@ -327,7 +327,7 @@ bufSize = 512;      // error: attempt to write to const object
   extern const int bufSize;   // same bufSize as defined in file_1.cc
   ```
 
-### const 的引用（References to const）
+### 2.4.1 const 的引用 (References to const)
 
 把引用绑定在`const`对象上即为对常量的引用（reference to const）。对常量的引用不能被用作修改它所绑定的对象。
 
@@ -357,7 +357,7 @@ int &r2 = ci;   // error: non const reference to a const object
   const int &ri = dval;
   ```
 
-### 指针和 const（Pointers and const）
+### 2.4.2 指针和 const (Pointers and const)
 
 指向常量的指针（pointer to const）不能用于修改其所指向的对象。常量对象的地址只能使用指向常量的指针来存放，但是指向常量的指针可以指向一个非常量对象。
 
@@ -381,7 +381,7 @@ const double *const pip = &pi;  // pip is a const pointer to a const object
 
 指针本身是常量并不代表不能通过指针修改其所指向的对象的值，能否这样做完全依赖于其指向对象的类型。
 
-### 顶层 const（Top-Level const）
+### 2.4.3 顶层 const (Top-Level const)
 
 顶层`const`表示指针本身是个常量，底层`const`（low-level const）表示指针所指的对象是一个常量。指针类型既可以是顶层`const`也可以是底层`const`。
 
@@ -413,7 +413,7 @@ const int &r = ci;      // const in reference types is always low-level
   const int &r2 = i;  // ok: can bind const int& to plain int
   ```
 
-### constexpr 和常量表达式（constexpr and Constant Expressions）
+### 2.4.4 constexpr 和常量表达式 (constexpr and Constant Expressions)
 
 常量表达式（constant expressions）指值不会改变并且在编译过程就能得到计算结果的表达式。
 
@@ -450,9 +450,9 @@ constexpr const int *cp = &i;   // cp是指向const int的const指针
 
 建议使用`constexpr`修饰表示数组大小的对象，因为数组的大小必须在编译期间确定且不能改变。
 
-## 处理类型（Dealing with Types）
+## 2.5 处理类型 (Dealing with Types)
 
-### 类型别名（Type Aliases）
+### 2.5.1 类型别名 (Type Aliases)
 
 类型别名是某种类型的同义词，传统方法是使用关键字`typedef`定义类型别名。
 
@@ -467,7 +467,7 @@ C++11 使用关键字`using`进行别名声明（alias declaration），作用�
 using SI = Sales_item; // SI is a synonym for Sales_item
 ```
 
-### auto 类型说明符（The auto Type Specifier）
+### 2.5.2 auto 类型说明符 (The auto Type Specifier)
 
 C++11 新增`auto`类型说明符，能让编译器自动分析表达式所属的类型。`auto`定义的变量必须有初始值。
 
@@ -509,7 +509,7 @@ auto &h = 42;   // error: we can't bind a plain reference to a literal
 const auto &j = 42;     // ok: we can bind a const reference to a literal
 ```
 
-### decltype 类型指示符（The decltype Type Specifier）
+### 2.5.3 decltype 类型指示符 (The decltype Type Specifier)
 
 C++11 新增`decltype`类型指示符，作用是选择并返回操作数的数据类型，此过程中编译器不实际计算表达式的值。
 
@@ -530,7 +530,7 @@ decltype(cj) z;     // error: z is a reference and must be initialized
 
 `decltype((var))`的结果永远是引用，而`decltype(var)`的结果只有当*var*本身是一个引用时才会是引用。
 
-## 自定义数据结构（Defining Our Own Data Structures）
+## 2.6 自定义数据结构 (Defining Our Own Data Structures)
 
 C++11 规定可以为类的数据成员（data member）提供一个类内初始值（in-class initializer）。创建对象时，类内初始值将用于初始化数据成员，没有初始值的成员将被默认初始化。
 

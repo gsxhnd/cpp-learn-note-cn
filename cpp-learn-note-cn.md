@@ -43,7 +43,7 @@ int main()
 
 算数类型分为两类：整型（integral type）、浮点型（floating-point type）。
 
-![2-1](./Chapter-2 Variables and Basic Types/Images/2-1.png)
+![2-1](./Images/2-1.png)
 
 `bool`类型的取值是`true`或`false`。
 
@@ -68,18 +68,19 @@ int main()
 - 执行浮点数运算时建议使用`double`类型。
 
 ### 2.1.2 类型转换 (Type Conversions)
+
 进行类型转换时，类型所能表示的值的范围决定了转换的过程。
 
-- 把非布尔类型的算术值赋给布尔类型时，初始值为0则结果为`false`，否则结果为`true`。
-- 把布尔值赋给非布尔类型时，初始值为`false`则结果为0，初始值为`true`则结果为1。
+- 把非布尔类型的算术值赋给布尔类型时，初始值为 0 则结果为`false`，否则结果为`true`。
+- 把布尔值赋给非布尔类型时，初始值为`false`则结果为 0，初始值为`true`则结果为 1。
 - 把浮点数赋给整数类型时，进行近似处理，结果值仅保留浮点数中的整数部分。
-- 把整数值赋给浮点类型时，小数部分记为0。如果该整数所占的空间超过了浮点类型的容量，精度可能有损失。
-- 赋给无符号类型一个超出它表示范围的值时，结果是初始值对无符号类型表示数值总数（8比特大小的`unsigned char`能表示的数值总数是256）取模后的余数。
+- 把整数值赋给浮点类型时，小数部分记为 0。如果该整数所占的空间超过了浮点类型的容量，精度可能有损失。
+- 赋给无符号类型一个超出它表示范围的值时，结果是初始值对无符号类型表示数值总数（8 比特大小的`unsigned char`能表示的数值总数是 256）取模后的余数。
 - 赋给带符号类型一个超出它表示范围的值时，结果是未定义的（undefined）。
 
 避免无法预知和依赖于实现环境的行为。
 
-无符号数不会小于0这一事实关系到循环的写法。
+无符号数不会小于 0 这一事实关系到循环的写法。
 
 ```C++
 // WRONG: u can never be less than 0; the condition will always succeed
@@ -87,7 +88,7 @@ for (unsigned u = 10; u >= 0; --u)
     std::cout << u << std::endl;
 ```
 
-当*u*等于0时，*--u*的结果将会是4294967295。一种解决办法是用`while`语句来代替`for`语句，前者可以在输出变量前先减去1。
+当*u*等于 0 时，*--u*的结果将会是 4294967295。一种解决办法是用`while`语句来代替`for`语句，前者可以在输出变量前先减去 1。
 
 ```c++
 unsigned u = 11;    // start the loop one past the first element we want to print
@@ -102,11 +103,11 @@ while (u > 0)
 
 ### 2.1.3 字面值常量 (Literals)
 
-以`0`开头的整数代表八进制（octal）数，以`0x`或`0X`开头的整数代表十六进制（hexadecimal）数。在C++14中，`0b`或`0B`开头的整数代表二进制（binary）数。
+以`0`开头的整数代表八进制（octal）数，以`0x`或`0X`开头的整数代表十六进制（hexadecimal）数。在 C++14 中，`0b`或`0B`开头的整数代表二进制（binary）数。
 
 整型字面值具体的数据类型由它的值和符号决定。
 
-C++14新增了单引号`'`形式的数字分隔符。数字分隔符不会影响数字的值，但可以通过分隔符将数字分组，使数值读写更容易。
+C++14 新增了单引号`'`形式的数字分隔符。数字分隔符不会影响数字的值，但可以通过分隔符将数字分组，使数值读写更容易。
 
 ```c++
 // 按照书写形式，每3位分为一组
@@ -141,7 +142,7 @@ std::cout << '\n';      // prints a newline
 std::cout << "\tHi!\n"; // prints a tab followd by "Hi!" and a newline
 ```
 
-泛化转义序列的形式是`\x`后紧跟1个或多个十六进制数字，或者`\`后紧跟1个、2个或3个八进制数字，其中数字部分表示字符对应的数值。如果`\`后面跟着的八进制数字超过3个，则只有前3个数字与`\`构成转义序列。相反，`\x`要用到后面跟着的所有数字。
+泛化转义序列的形式是`\x`后紧跟 1 个或多个十六进制数字，或者`\`后紧跟 1 个、2 个或 3 个八进制数字，其中数字部分表示字符对应的数值。如果`\`后面跟着的八进制数字超过 3 个，则只有前 3 个数字与`\`构成转义序列。相反，`\x`要用到后面跟着的所有数字。
 
 ```c++
 std::cout << "Hi \x4dO\115!\n"; // prints Hi MOM! followed by a newline
@@ -150,11 +151,9 @@ std::cout << '\115' << '\n';    // prints M followed by a newline
 
 添加特定的前缀和后缀，可以改变整型、浮点型和字符型字面值的默认类型。
 
-![2-2](Chapter-2 Variables and Basic Types/Images/2-2.png)
+![2-2](./Images/2-2.png)
 
 使用一个长整型字面值时，最好使用大写字母`L`进行标记，小写字母`l`和数字`1`容易混淆。
-
-
 
 ## 2.2 变量 (Variables)
 
@@ -174,7 +173,7 @@ int c(ld), d = ld;      // ok: but value will be truncated
 
 如果定义变量时未指定初值，则变量被默认初始化（default initialized）。
 
-对于内置类型，定义于任何函数体之外的变量被初始化为0，函数体内部的变量将不被初始化（uninitialized）。
+对于内置类型，定义于任何函数体之外的变量被初始化为 0，函数体内部的变量将不被初始化（uninitialized）。
 
 定义于函数体内的内置类型对象如果没有初始化，则其值未定义，使用该类值是一种错误的编程行为且很难调试。类的对象如果没有显式初始化，则其值由类确定。
 
@@ -200,11 +199,13 @@ int j;      // declares and defines j
 如果要在多个文件中使用同一个变量，就必须将声明和定义分开。此时变量的定义必须出现且只能出现在一个文件中，其他使用该变量的文件必须对其进行声明，但绝对不能重复定义。
 
 ### 2.2.3 标识符 (Identifiers)
+
 C++的标识符由字母、数字和下划线组成，其中必须以字母或下划线开头。标识符的长度没有限制，但是对大小写字母敏感。C++为标准库保留了一些名字。用户自定义的标识符不能连续出现两个下划线，也不能以下划线紧连大写字母开头。此外，定义在函数体外的标识符不能以下划线开头。
 
-![2-3](Chapter-2 Variables and Basic Types/Images/2-3.png)
+![2-3](./Images/2-3.png)
 
 ### 2.2.4 名字的作用域 (Scope of a Name)
+
 定义在函数体之外的名字拥有全局作用域（global scope）。声明之后，该名字在整个程序范围内都可使用。
 
 最好在第一次使用变量时再去定义它。这样做更容易找到变量的定义位置，并且也可以赋给它一个比较合理的初始值。
@@ -254,8 +255,6 @@ int &refVal2;       // error: a reference must be initialized
 
 引用只能绑定在对象上，不能与字面值或某个表达式的计算结果绑定在一起。
 
-
-
 ### 2.3.2 指针 (Pointer)
 
 与引用类似，指针也实现了对其他对象的间接访问。
@@ -304,7 +303,7 @@ cout << *p;     // * yields the object to which p points; prints 42
 
 空指针（null pointer）不指向任何对象，在试图使用一个指针前代码可以先检查它是否为空。得到空指针最直接的办法是用字面值`nullptr`来初始化指针。
 
-旧版本程序通常使用`NULL`（预处理变量，定义于头文件*cstdlib*中，值为0）给指针赋值，但在C++11中，最好使用`nullptr`初始化空指针。
+旧版本程序通常使用`NULL`（预处理变量，定义于头文件*cstdlib*中，值为 0）给指针赋值，但在 C++11 中，最好使用`nullptr`初始化空指针。
 
 ```c++
 int *p1 = nullptr;  // equivalent to int *p1 = 0;
@@ -317,9 +316,8 @@ int *p3 = NULL;     // equivalent to int *p3 = 0;
 
 `void*`是一种特殊的指针类型，可以存放任意对象的地址，但不能直接操作`void*`指针所指的对象。
 
-
-
 ### 2.3.3 理解复合类型的声明 (Understanding Compound Type Declarations)
+
 指向指针的指针（Pointers to Pointers）：
 
 ```c++
@@ -342,9 +340,8 @@ r = &i;         // r refers to a pointer; assigning &i to r makes p point to i
 
 面对一条比较复杂的指针或引用的声明语句时，从右向左阅读有助于弄清它的真实含义。
 
+## 2.4 const 限定符 (Const Qualifier)
 
-
-## 2.4 const限定符 (Const Qualifier)
 在变量类型前添加关键字`const`可以创建值不能被改变的对象。`const`变量必须被初始化。
 
 ```c++
@@ -367,7 +364,7 @@ bufSize = 512;      // error: attempt to write to const object
   extern const int bufSize;   // same bufSize as defined in file_1.cc
   ```
 
-### 2.4.1 const的引用 (References to const)
+### 2.4.1 const 的引用 (References to const)
 
 把引用绑定在`const`对象上即为对常量的引用（reference to const）。对常量的引用不能被用作修改它所绑定的对象。
 
@@ -397,7 +394,7 @@ int &r2 = ci;   // error: non const reference to a const object
   const int &ri = dval;
   ```
 
-### 2.4.2 指针和const (Pointers and const)
+### 2.4.2 指针和 const (Pointers and const)
 
 指向常量的指针（pointer to const）不能用于修改其所指向的对象。常量对象的地址只能使用指向常量的指针来存放，但是指向常量的指针可以指向一个非常量对象。
 
@@ -421,9 +418,7 @@ const double *const pip = &pi;  // pip is a const pointer to a const object
 
 指针本身是常量并不代表不能通过指针修改其所指向的对象的值，能否这样做完全依赖于其指向对象的类型。
 
-
-
-### 2.4.3 顶层const (Top-Level const)
+### 2.4.3 顶层 const (Top-Level const)
 
 顶层`const`表示指针本身是个常量，底层`const`（low-level const）表示指针所指的对象是一个常量。指针类型既可以是顶层`const`也可以是底层`const`。
 
@@ -455,9 +450,7 @@ const int &r = ci;      // const in reference types is always low-level
   const int &r2 = i;  // ok: can bind const int& to plain int
   ```
 
-
-
-### 2.4.4 constexpr和常量表达式 (constexpr and Constant Expressions)
+### 2.4.4 constexpr 和常量表达式 (constexpr and Constant Expressions)
 
 常量表达式（constant expressions）指值不会改变并且在编译过程就能得到计算结果的表达式。
 
@@ -470,7 +463,7 @@ int staff_size = 27;        // staff_size is not a constant expression
 const int sz = get_size();  // sz is not a constant expression
 ```
 
-C++11允许将变量声明为`constexpr`类型以便由编译器来验证变量的值是否是一个常量表达式。
+C++11 允许将变量声明为`constexpr`类型以便由编译器来验证变量的值是否是一个常量表达式。
 
 ```c++
 constexpr int mf = 20;          // 20 is a constant expression
@@ -478,7 +471,7 @@ constexpr int limit = mf + 1;   // mf + 1 is a constant expression
 constexpr int sz = size();      // ok only if size is a constexpr function
 ```
 
-指针和引用都能定义成`constexpr`，但是初始值受到严格限制。`constexpr`指针的初始值必须是0、`nullptr`或者是存储在某个固定地址中的对象。
+指针和引用都能定义成`constexpr`，但是初始值受到严格限制。`constexpr`指针的初始值必须是 0、`nullptr`或者是存储在某个固定地址中的对象。
 
 函数体内定义的普通变量一般并非存放在固定地址中，因此`constexpr`指针不能指向这样的变量。相反，函数体外定义的变量地址固定不变，可以用来初始化`constexpr`指针。
 
@@ -494,8 +487,6 @@ constexpr const int *cp = &i;   // cp是指向const int的const指针
 
 建议使用`constexpr`修饰表示数组大小的对象，因为数组的大小必须在编译期间确定且不能改变。
 
-
-
 ## 2.5 处理类型 (Dealing with Types)
 
 ### 2.5.1 类型别名 (Type Aliases)
@@ -507,15 +498,15 @@ typedef double wages;   // wages is a synonym for double
 typedef wages base, *p; // base is a synonym for double, p for double*
 ```
 
-C++11使用关键字`using`进行别名声明（alias declaration），作用是把等号左侧的名字规定成等号右侧类型的别名。
+C++11 使用关键字`using`进行别名声明（alias declaration），作用是把等号左侧的名字规定成等号右侧类型的别名。
 
 ```c++
 using SI = Sales_item; // SI is a synonym for Sales_item
 ```
 
-### 2.5.2 auto类型说明符 (The auto Type Specifier)
+### 2.5.2 auto 类型说明符 (The auto Type Specifier)
 
-C++11新增`auto`类型说明符，能让编译器自动分析表达式所属的类型。`auto`定义的变量必须有初始值。
+C++11 新增`auto`类型说明符，能让编译器自动分析表达式所属的类型。`auto`定义的变量必须有初始值。
 
 ```c++
 // the type of item is deduced from the type of the result of adding val1 and val2
@@ -547,7 +538,6 @@ auto item = val1 + val2;    // item initialized to the result of val1 + val2
   const auto f = ci;  // deduced type of ci is int; f has type const int
   ```
 
-
 设置类型为`auto`的引用时，原来的初始化规则仍然适用，初始值中的顶层常量属性仍然保留。
 
 ```c++
@@ -556,9 +546,9 @@ auto &h = 42;   // error: we can't bind a plain reference to a literal
 const auto &j = 42;     // ok: we can bind a const reference to a literal
 ```
 
-### 2.5.3 decltype类型指示符 (The decltype Type Specifier)
+### 2.5.3 decltype 类型指示符 (The decltype Type Specifier)
 
-C++11新增`decltype`类型指示符，作用是选择并返回操作数的数据类型，此过程中编译器不实际计算表达式的值。
+C++11 新增`decltype`类型指示符，作用是选择并返回操作数的数据类型，此过程中编译器不实际计算表达式的值。
 
 ```c++
 decltype(f()) sum = x;  // sum has whatever type f returns
@@ -579,7 +569,7 @@ decltype(cj) z;     // error: z is a reference and must be initialized
 
 ## 2.6 自定义数据结构 (Defining Our Own Data Structures)
 
-C++11规定可以为类的数据成员（data member）提供一个类内初始值（in-class initializer）。创建对象时，类内初始值将用于初始化数据成员，没有初始值的成员将被默认初始化。
+C++11 规定可以为类的数据成员（data member）提供一个类内初始值（in-class initializer）。创建对象时，类内初始值将用于初始化数据成员，没有初始值的成员将被默认初始化。
 
 类内初始值不能使用圆括号。
 
@@ -604,19 +594,17 @@ struct Sales_data
 #endif
 ```
 
-在高级版本的IDE环境中，可以直接使用`#pragma once`命令来防止头文件的重复包含。
+在高级版本的 IDE 环境中，可以直接使用`#pragma once`命令来防止头文件的重复包含。
 
-预处理变量无视C++语言中关于作用域的规则。
+预处理变量无视 C++语言中关于作用域的规则。
 
 整个程序中的预处理变量，包括头文件保护符必须唯一。预处理变量的名字一般均为大写。
 
 头文件即使目前还没有被包含在任何其他头文件中，也应该设置保护符。
 
-
-
 # 第三章 字符串、向量和数组
 
-## 3.1 命名空间的using声明 (Namespace using Declarations)
+## 3.1 命名空间的 using 声明 (Namespace using Declarations)
 
 使用`using`声明后就无须再通过专门的前缀去获取所需的名字了。
 
@@ -628,7 +616,6 @@ using std::cout;
 
 头文件中通常不应该包含`using`声明。
 
-## 3.2 标准库类型string (Library string Type)
+## 3.2 标准库类型 string (Library string Type)
 
 标准库类型`string`表示可变长的字符序列，定义在头文件**string**中。
-
