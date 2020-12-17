@@ -1,4 +1,4 @@
-# 第 3 章 字符串、向量和数组
+# 第 3 章 字符串、向量和数组(Strings, Vectors, and Arrays)
 
 ## 3.1 命名空间的 using 声明（Namespace using Declarations）
 

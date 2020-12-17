@@ -1,4 +1,4 @@
-# 第18章 用于大型程序的工具
+# 第 18 章 用于大型程序的工具(Tools for Large Programs)
 
 ## 异常处理（Exception Handling）
 
@@ -6,7 +6,7 @@
 
 ### 抛出异常（Throwing an Exception）
 
-在C++中，通过抛出（throwing）一条表达式来引发（raised）一个异常。被抛出的表达式类型和当前的调用链共同决定了应该使用哪段处理代码（handler）来处理该异常。被选中的处理代码是在调用链中与抛出对象类型匹配且距离最近的代码。
+在 C++中，通过抛出（throwing）一条表达式来引发（raised）一个异常。被抛出的表达式类型和当前的调用链共同决定了应该使用哪段处理代码（handler）来处理该异常。被选中的处理代码是在调用链中与抛出对象类型匹配且距离最近的代码。
 
 执行一个`throw`语句时，跟在`throw`后面的语句将不再执行。程序的控制权从`throw`转移到与之匹配的`catch`语句中。该`catch`可能是同一个函数中的局部`catch`，也可能位于直接或间接调用了发生异常的函数的另一个函数中。控制权的转移意味着两个问题：
 
@@ -99,7 +99,7 @@ catch (...)
 
 如果`catch(…)`与其他`catch`语句一起使用，则`catch(…)`必须位于最后，否则`catch(…)`后面的`catch`语句永远不会被匹配。
 
-### 函数try语句块与构造函数（Function try Blocks and Constructors）
+### 函数 try 语句块与构造函数（Function try Blocks and Constructors）
 
 要想处理构造函数初始值列表抛出的异常，必须将构造函数写成函数`try`语句块（function try block）的形式。函数`try`语句块使得一组`catch`语句可以同时处理构造函数体和构造函数初始化过程中的异常。
 
@@ -120,9 +120,9 @@ catch(const std::bad_alloc &e)
 
 在初始化构造函数参数时发生的异常不属于函数`try`语句块处理的范围。
 
-### noexcept异常说明（The noexcept Exception Specification）
+### noexcept 异常说明（The noexcept Exception Specification）
 
-在C++11中，可以通过提供`noexcept`说明（noexcept specification）来指出某个函数不会抛出异常。
+在 C++11 中，可以通过提供`noexcept`说明（noexcept specification）来指出某个函数不会抛出异常。
 
 ```c++
 void recoup(int) noexcept;  // won't throw
@@ -154,7 +154,7 @@ void f() noexcept   // promises not to throw any exception
 
 指明某个函数不会抛出异常可以让调用者不必再考虑异常处理操作。
 
-早期的C++版本设计了一套更详细的异常说明方案。函数可以使用一个关键字`throw`，后面跟上用括号包围的异常类型列表，用于指定函数可能抛出的异常类型。关键字`throw`出现的位置与C++11的`noexcept`相同。该方案在C++11中被取消。但如果一个函数被声明为`throw()`的，则也说明该函数不会抛出异常。
+早期的 C++版本设计了一套更详细的异常说明方案。函数可以使用一个关键字`throw`，后面跟上用括号包围的异常类型列表，用于指定函数可能抛出的异常类型。关键字`throw`出现的位置与 C++11 的`noexcept`相同。该方案在 C++11 中被取消。但如果一个函数被声明为`throw()`的，则也说明该函数不会抛出异常。
 
 ```c++
 void recoup(int) noexcept;   // recoup doesn't throw
@@ -223,7 +223,7 @@ public:
 
 `exception`类型只定义了拷贝构造函数、拷贝赋值运算符、一个虚析构函数和一个名为`what`的虚成员。`what`函数返回一个`const char*`，指向一个以`NULL`结尾的字符数组，并且不会抛出异常。
 
-`exception`、`bad_cast`和`bad_alloc`类型定义了默认构造函数。`runtime_error`和`logic_error`类型没有默认构造函数，但是有一个接受C风格字符串或`string`类型实参的构造函数，该实参通常用于提供错误信息。`what`函数返回用于初始化异常对象的错误信息。
+`exception`、`bad_cast`和`bad_alloc`类型定义了默认构造函数。`runtime_error`和`logic_error`类型没有默认构造函数，但是有一个接受 C 风格字符串或`string`类型实参的构造函数，该实参通常用于提供错误信息。`what`函数返回用于初始化异常对象的错误信息。
 
 实际编程中通常会自定义`exception`（或者`exception`的标准库派生类）的派生类以扩展其继承体系。这些面向具体应用的异常类表示了与应用相关的异常状态。
 
@@ -346,7 +346,7 @@ template <> struct std::hash<Sales_data>
 
 命名空间可以嵌套。嵌套的命名空间同时也是一个嵌套的作用域，它嵌套在外层命名空间的作用域内。内层命名空间声明的名字会隐藏外层命名空间的同名成员。在嵌套的命名空间中定义的名字只在内层命名空间中有效，外层命名空间中的代码在访问时需要在名字前添加限定符。
 
-C++11新增了内联命名空间（inline namespace）。和一般的嵌套命名空间不同，内联命名空间中的名字可以被外层命名空间直接使用。定义内联命名空间的方式是在`namespace`前添加关键字`inline`。`inline`必须出现在该命名空间第一次定义的地方。
+C++11 新增了内联命名空间（inline namespace）。和一般的嵌套命名空间不同，内联命名空间中的名字可以被外层命名空间直接使用。定义内联命名空间的方式是在`namespace`前添加关键字`inline`。`inline`必须出现在该命名空间第一次定义的地方。
 
 ```c++
 inline namespace FifthEd
@@ -408,7 +408,7 @@ namespace local
 local::i = 42;
 ```
 
-在标准C++引入命名空间的概念之前，程序需要将名字声明为`static`的以令其对整个文件有效。在文件中进行静态声明的做法是从C语言继承而来的。在C语言中，声明为`static`的全局实体在其所在的文件之外不可见。该做法已经被C++标准取消，现在应该使用未命名的命名空间。
+在标准 C++引入命名空间的概念之前，程序需要将名字声明为`static`的以令其对整个文件有效。在文件中进行静态声明的做法是从 C 语言继承而来的。在 C 语言中，声明为`static`的全局实体在其所在的文件之外不可见。该做法已经被 C++标准取消，现在应该使用未命名的命名空间。
 
 ### 使用命名空间成员（Using Namespace Members）
 
@@ -432,7 +432,7 @@ namespace primer = cplusplus_primer;
 
 如果对*std*等命名空间使用了`using`指示而未做任何特殊控制的话，会重新引入多个库之间的名字冲突问题。
 
- `using`指示具有将命名空间成员提升到包含命名空间本身和`using`指示的最近外层作用域的能力。
+`using`指示具有将命名空间成员提升到包含命名空间本身和`using`指示的最近外层作用域的能力。
 
 ```c++
 // namespace A and function f are defined at global scope
@@ -606,7 +606,7 @@ Panda::Panda()
 
 派生类的构造函数初始值列表将实参分别传递给每个直接基类。其中基类的构造顺序与派生列表中基类的出现顺序一致，与构造函数初始值列表中基类的顺序无关。
 
-C++11允许派生类从它的一个或多个基类中继承构造函数，但如果从多个基类中继承了相同的构造函数（即形参列表完全相同），程序会产生错误。
+C++11 允许派生类从它的一个或多个基类中继承构造函数，但如果从多个基类中继承了相同的构造函数（即形参列表完全相同），程序会产生错误。
 
 ```c++
 struct Base1

@@ -1,4 +1,4 @@
-# 第 2 章 变量和基本类型
+# 第 2 章 变量和基本类型(Variables and Basic Types)
 
 ## 2.1 基本内置类型 (Primitive Built-in Types)
 

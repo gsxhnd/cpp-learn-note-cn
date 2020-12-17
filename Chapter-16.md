@@ -1,4 +1,4 @@
-# 第16章 模板与泛型编程
+# 第 16 章 模板与泛型编程(Templates and Generic Programming)
 
 ## 定义模板（Defining a Template）
 
@@ -168,10 +168,10 @@ BlobPtr<T>& BlobPtr<T>::operator++()
   // forward declarations needed for friend declarations in Blob
   template <typename> class BlobPtr;
   template <typename> class Blob;    // needed for parameters in operator==
-  
+
   template <typename T>
   bool operator==(const Blob<T>&, const Blob<T>&);
-  
+
   template <typename T>
   class Blob
   {
@@ -189,7 +189,7 @@ BlobPtr<T>& BlobPtr<T>::operator++()
   ```c++
   // forward declaration necessary to befriend a specific instantiation of a template
   template <typename T> class Pal;
-  
+
   class C
   { // C is an ordinary, nontemplate class
       friend class Pal<C>;    // Pal instantiated with class C is a friend to C
@@ -197,7 +197,7 @@ BlobPtr<T>& BlobPtr<T>::operator++()
       // no forward declaration required when we befriend all instantiations
       template <typename T> friend class Pal2;
   };
-  
+
   template <typename T>
   class C2
   { // C2 is itself a class template
@@ -210,7 +210,7 @@ BlobPtr<T>& BlobPtr<T>::operator++()
   };
   ```
 
-C++11中，类模板可以将模板类型参数声明为友元。
+C++11 中，类模板可以将模板类型参数声明为友元。
 
 ```c++
 template <typename Type>
@@ -221,7 +221,7 @@ class Bar
 };
 ```
 
-C++11允许使用`using`为类模板定义类型别名。
+C++11 允许使用`using`为类模板定义类型别名。
 
 ```c++
 template<typename T> using twin = pair<T, T>;
@@ -236,7 +236,7 @@ class Foo
 {
 public:
     static std::size_t count() { return ctr; }
-    
+
 private:
     static std::size_t ctr;
 };
@@ -289,7 +289,7 @@ typename T::value_type top(const T& c)
 }
 ```
 
-C++11允许为函数和类模板提供默认实参。
+C++11 允许为函数和类模板提供默认实参。
 
 ```c++
 // compare has a default template argument, less<T>
@@ -332,11 +332,11 @@ public:
     // as with any function template, the type of T is deduced by the compiler
     template <typename T>
     void operator()(T *p) const
-    { 
+    {
         os << "deleting unique_ptr" << std::endl;
         delete p;
     }
-    
+
 private:
     std::ostream &os;
 };
@@ -365,7 +365,7 @@ Blob<T>::Blob(It b, It e):
 
 因为模板在使用时才会进行实例化，所以相同的实例可能出现在多个对象文件中。当两个或多个独立编译的源文件使用了相同的模板，并提供了相同的模板参数时，每个文件中都会有该模板的一个实例。
 
-在大型程序中，多个文件实例化相同模板的额外开销可能非常严重。C++11允许通过显式实例化（explicit instantiation）来避免这种开销。
+在大型程序中，多个文件实例化相同模板的额外开销可能非常严重。C++11 允许通过显式实例化（explicit instantiation）来避免这种开销。
 
 显式实例化的形式如下：
 
@@ -408,7 +408,7 @@ int i = compare(a1[0], a2[0]);    // instantiation will appear elsewhere
 
 与非模板函数一样，调用函数模板时传递的实参被用来初始化函数的形参。如果一个函数形参的类型使用了模板类型参数，则会采用特殊的初始化规则，只有有限的几种类型转换会自动地应用于这些实参。编译器通常会生成新的模板实例而不是对实参进行类型转换。
 
-有3种类型转换可以在调用中应用于函数模板：
+有 3 种类型转换可以在调用中应用于函数模板：
 
 - 顶层`const`会被忽略。
 - 可以将一个非`const`对象的引用或指针传递给一个`const`引用或指针形参。
@@ -416,7 +416,7 @@ int i = compare(a1[0], a2[0]);    // instantiation will appear elsewhere
 
 其他的类型转换，如算术转换、派生类向基类的转换以及用户定义的转换，都不能应用于函数模板。
 
- 一个模板类型参数可以作为多个函数形参的类型。由于允许的类型转换有限，因此传递给这些形参的实参必须具有相同的类型，否则调用失败。
+一个模板类型参数可以作为多个函数形参的类型。由于允许的类型转换有限，因此传递给这些形参的实参必须具有相同的类型，否则调用失败。
 
 ```c++
 long lng;
@@ -616,7 +616,7 @@ template <typename T> void f(T&&);         // binds to nonconst rvalues
 template <typename T> void f(const T&);    // lvalues and const rvalues
 ```
 
-### 理解std::move（Understanding std::move）
+### 理解 std::move（Understanding std::move）
 
 `std::move`的定义如下：
 
@@ -650,7 +650,7 @@ s2 = std::move(s1);     // ok: but after the assigment s1 has indeterminate valu
   - `remove_reference`用`string&`进行实例化。
   - `remove_reference<string&>`的`type`成员是`string`。
   - `move`的返回类型是`string&&`。
-  - `move`的函数参数t的类型为`string& &&`，会折叠成`string&`。
+  - `move`的函数参数 t 的类型为`string& &&`，会折叠成`string&`。
 
 可以使用`static_cast`显式地将一个左值转换为一个右值引用。
 
@@ -704,7 +704,7 @@ void g(int &&i, int& j)
 flip2(g, i, 42);  // flip2 passes an lvalue to g’s rvalue reference parameter
 ```
 
-C++11在头文件*utility*中定义了`forward`。与`move`不同，`forward`必须通过显式模板实参调用，返回该显式实参类型的右值引用。即`forward<T>`返回类型`T&&`。
+C++11 在头文件*utility*中定义了`forward`。与`move`不同，`forward`必须通过显式模板实参调用，返回该显式实参类型的右值引用。即`forward<T>`返回类型`T&&`。
 
 通常情况下，可以使用`forward`传递定义为指向模板类型参数的右值引用函数参数。通过其返回类型上的引用折叠，`forward`可以保持给定实参的左值/右值属性。
 
@@ -816,11 +816,11 @@ ostream &print(ostream &os, const T &t, const Args&... rest)
 }
 ```
 
-|          Call           |  t   | rest... |
-| :---------------------: | :--: | :-----: |
-| `print(cout, i, s, 42)` |  i   |  s, 42  |
-|  `print(cout, s, 42)`   |  s   |   42    |
-|    `print(cout, 42)`    |      |         |
+|          Call           |  t  | rest... |
+| :---------------------: | :-: | :-----: |
+| `print(cout, i, s, 42)` |  i  |  s, 42  |
+|  `print(cout, s, 42)`   |  s  |   42    |
+|    `print(cout, 42)`    |     |         |
 
 ### 包扩展（Pack Expansion）
 
@@ -867,7 +867,7 @@ print(os, debug_rep(rest...));   // error: no matching function to call
 
 ### 转发参数包（Forwarding Parameter Packs）
 
-在C++11中，可以组合使用可变参数模板和`forward`机制来编写函数，实现将其实参不变地传递给其他函数。
+在 C++11 中，可以组合使用可变参数模板和`forward`机制来编写函数，实现将其实参不变地传递给其他函数。
 
 ```c++
 // fun has zero or more parameters each of which is

@@ -1,4 +1,4 @@
-# 第15章 面向对象程序设计
+# 第 15 章 面向对象程序设计(Object-Oriented Programming)
 
 ## OOP：概述（OOP：An Overview）
 
@@ -64,7 +64,7 @@ Quote &r = bulk;    // r bound to the Quote part of bulk
 每个类控制它自己的成员初始化过程，派生类必须使用基类的构造函数来初始化它的基类部分。派生类的构造函数通过构造函数初始化列表来将实参传递给基类构造函数。
 
 ```c++
-Bulk_quote(const std::string& book, double p, 
+Bulk_quote(const std::string& book, double p,
             std::size_t qty, double disc) :
     Quote(book, p), min_qty(qty), discount(disc) { }
 ```
@@ -87,7 +87,7 @@ class D2: public D1 { /* ... */ };
 
 *Base*是*D1*的直接基类（direct base），是*D2*的间接基类（indirect base）。最终的派生类将包含它直接基类的子对象以及每个间接基类的子对象。
 
-C++11中，在类名后面添加`final`关键字可以禁止其他类继承它。
+C++11 中，在类名后面添加`final`关键字可以禁止其他类继承它。
 
 ```c++
 class NoDerived final { /* */ };    // NoDerived can't be a base class
@@ -140,7 +140,7 @@ item = bulk;        // calls Quote::operator=(const Quote&)
 
 派生类可以定义一个与基类中的虚函数名字相同但形参列表不同的函数，但编译器会认为该函数与基类中原有的函数是相互独立的，此时派生类的函数并没有覆盖掉基类中的版本。
 
-C++11允许派生类使用`override`关键字显式地注明虚函数。如果`override`标记了某个函数，但该函数并没有覆盖已存在的虚函数，编译器将报告错误。`override`位于函数参数列表之后。
+C++11 允许派生类使用`override`关键字显式地注明虚函数。如果`override`标记了某个函数，但该函数并没有覆盖已存在的虚函数，编译器将报告错误。`override`位于函数参数列表之后。
 
 ```c++
 struct B
@@ -150,7 +150,7 @@ struct B
     void f3();
 };
 
-struct D1 : B 
+struct D1 : B
 {
     void f1(int) const override;    // ok: f1 matches f1 in the base
     void f2(int) override;      // error: B has no f2(int) function
@@ -313,7 +313,7 @@ protected:
 
 struct Derived : Base
 {
-    int get_mem() { return mem; }   // returns Derived::mem  
+    int get_mem() { return mem; }   // returns Derived::mem
 protected:
     int mem;    // hides mem in the base
 };
@@ -333,7 +333,7 @@ struct Derived : Base
 
 和其他函数一样，成员函数无论是否是虚函数都能被重载。
 
-派生类可以覆盖重载函数的0个或多个实例。如果派生类希望所有的重载版本对它来说都是可见的，那么它就需要覆盖所有版本，或者一个也不覆盖。
+派生类可以覆盖重载函数的 0 个或多个实例。如果派生类希望所有的重载版本对它来说都是可见的，那么它就需要覆盖所有版本，或者一个也不覆盖。
 
 有时一个类仅需覆盖重载集合中的一些而非全部函数，此时如果我们不得不覆盖基类中的每一个版本的话，操作会极其繁琐。为了简化操作，可以为重载成员提供`using`声明。`using`声明指定了一个函数名字但不指定形参列表，所以一条基类成员函数的`using`声明语句就可以把该函数的所有重载实例添加到派生类作用域中。
 
@@ -342,7 +342,7 @@ class Base
 {
 private:
     int x;
-    
+
 public:
     virtual void mf1() = 0;
     virtual void mf1(int);
@@ -466,7 +466,7 @@ public:
 
 ### 继承的构造函数（Inherited Constructors）
 
-C++11新标准允许派生类重用（非常规方式继承）其直接基类定义的构造函数。继承方式是提供一条注明了直接基类名的`using`声明语句。
+C++11 新标准允许派生类重用（非常规方式继承）其直接基类定义的构造函数。继承方式是提供一条注明了直接基类名的`using`声明语句。
 
 ```c++
 class Bulk_quote : public Disc_quote

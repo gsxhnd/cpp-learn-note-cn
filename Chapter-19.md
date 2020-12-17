@@ -1,8 +1,8 @@
-# 第19章 特殊工具与技术
+# 第 19 章 特殊工具与技术(Specialized Tools and Techniques)
 
 ## 控制内存分配（Controlling Memory Allocation）
 
-### 重载new和delete（Overloading new and delete）
+### 重载 new 和 delete（Overloading new and delete）
 
 使用`new`表达式时，实际执行了三步操作：
 
@@ -21,7 +21,7 @@
 
 可以使用作用域运算符令`new`或`delete`表达式忽略定义在类中的函数，直接执行全局作用域版本。
 
-标准库定义了`operator new`和`operator delete`函数的8个重载版本，其中前4个版本可能抛出`bad_alloc`异常，后4个版本不会抛出异常。重载这些运算符时，必须使用关键字`noexcept`指定其不抛出异常。
+标准库定义了`operator new`和`operator delete`函数的 8 个重载版本，其中前 4 个版本可能抛出`bad_alloc`异常，后 4 个版本不会抛出异常。重载这些运算符时，必须使用关键字`noexcept`指定其不抛出异常。
 
 ```c++
 // these versions might throw an exception
@@ -52,7 +52,7 @@ void *operator new(size_t, void*);   // this version may not be redefined
 
 将`operator delete`或`operator delete[]`定义为类的成员时，可以包含另一个类型为`size_t`的形参。该形参的初始值是第一个形参所指向对象的字节数。`size_t`形参可用于删除继承体系中的对象。如果基类有一个虚析构函数，则传递给`operator delete`的字节数会因待删除指针所指向对象的动态类型不同而有所区别。实际运行的`operator delete`函数版本也由对象的动态类型决定。
 
-`malloc`函数接受一个表示待分配字节数的`size_t`参数，返回指向分配空间的指针，或者返回0以表示分配失败。`free`函数接受一个`void*`参数，它是`malloc`返回的指针的副本，`free`将相关内存返回给系统。调用`free(0)`没有任何意义。
+`malloc`函数接受一个表示待分配字节数的`size_t`参数，返回指向分配空间的指针，或者返回 0 以表示分配失败。`free`函数接受一个`void*`参数，它是`malloc`返回的指针的副本，`free`将相关内存返回给系统。调用`free(0)`没有任何意义。
 
 ```c++
 void *operator new(size_t size)
@@ -69,9 +69,9 @@ void operator delete(void *mem) noexcept
 }
 ```
 
-### 定位new表达式（Placement new Expressions）
+### 定位 new 表达式（Placement new Expressions）
 
-在C++的早期版本中，`allocator`类还不是标准库的一部分。如果程序想分开内存分配和初始化过程，需要直接调用`operator new`和`operator delete`函数。它们类似`allocator`类的`allocate`和`deallocate`成员，负责分配或释放内存空间，但不会构造或销毁对象。
+在 C++的早期版本中，`allocator`类还不是标准库的一部分。如果程序想分开内存分配和初始化过程，需要直接调用`operator new`和`operator delete`函数。它们类似`allocator`类的`allocate`和`deallocate`成员，负责分配或释放内存空间，但不会构造或销毁对象。
 
 不能使用`allocator`类的`construct`函数在`operator new`分配的内存空间中构造对象，而应该使用定位`new`表达式构造。
 
@@ -97,9 +97,9 @@ new (place_address) type [size] { braced initializer list }
 - `typeid`运算符，用于返回表达式的类型。
 - `dynamic_cast`运算符，用于将基类的指针或引用安全地转换为派生类的指针或引用。
 
-RTTI运算符适用于以下情况：想通过基类对象的指针或引用执行某个派生类操作，并且该操作不是虚函数。
+RTTI 运算符适用于以下情况：想通过基类对象的指针或引用执行某个派生类操作，并且该操作不是虚函数。
 
-### dynamic_cast运算符（The dynamic_cast Operator）
+### dynamic_cast 运算符（The dynamic_cast Operator）
 
 `dynamic_cast`运算符的形式如下：
 
@@ -117,7 +117,7 @@ dynamic_cast<type&&>(e)
 
 如果条件符合，则类型转换成功，否则转换失败。转换失败可能有两种结果：
 
-- 如果`dynamic_cast`语句的转换目标是指针类型，则结果为0。
+- 如果`dynamic_cast`语句的转换目标是指针类型，则结果为 0。
 
   ```c++
   if (Derived *dp = dynamic_cast<Derived*>(bp))
@@ -151,7 +151,7 @@ dynamic_cast<type&&>(e)
 
 可以对一个空指针执行`dynamic_cast`，结果是所需类型的空指针。
 
-### typeid运算符（The typeid Operator）
+### typeid 运算符（The typeid Operator）
 
 `typeid`表达式的形式是`typeid(e)`，其中*e*可以是任意表达式或类型名称。`typeid`的结果是一个指向常量对象的引用，该对象的类型是标准库`type_info`（定义在头文件*typeinfo*中）或`type_info`的公有派生类型。
 
@@ -188,9 +188,9 @@ if (typeid(bp) == typeid(Derived))
 
 只有当类型含有虚函数时，编译器才会对`typeid`的表达式求值以确定返回类型。对于`typeid(*p)`，如果指针*p*所指向的类型不包含虚函数，则*p*可以是一个无效指针。否则`*p`会在运行期间求值，此时*p*必须是一个有效指针。如果*p*是空指针，`typeid(*p)`会抛出`bad_typeid`异常。
 
-### 使用RTTI（Using RTTI）
+### 使用 RTTI（Using RTTI）
 
-使用RTTI可以为具有继承关系的类实现相等运算符。
+使用 RTTI 可以为具有继承关系的类实现相等运算符。
 
 相等运算符的形参是基类的引用。
 
@@ -241,9 +241,9 @@ bool Base::equal(const Base &rhs) const
 }
 ```
 
-### type_info类（The type_info Class）
+### type_info 类（The type_info Class）
 
-`type_info`类的精确定义会根据编译器的不同而略有差异。但是C++规定`type_info`必须定义在头文件*typeinfo*中，并且至少提供以下操作：
+`type_info`类的精确定义会根据编译器的不同而略有差异。但是 C++规定`type_info`必须定义在头文件*typeinfo*中，并且至少提供以下操作：
 
 ![19-1](Images/19-1.png)
 
@@ -259,7 +259,7 @@ bool Base::equal(const Base &rhs) const
 
 C++包含两种枚举：
 
-- 限定作用域的枚举（scoped enumeration，C++11新增）。定义形式是关键字`enum class`（或`enum struct`）后接枚举类型名字以及用花括号包围、以逗号分隔的枚举成员（enumerator）列表。
+- 限定作用域的枚举（scoped enumeration，C++11 新增）。定义形式是关键字`enum class`（或`enum struct`）后接枚举类型名字以及用花括号包围、以逗号分隔的枚举成员（enumerator）列表。
 
   ```c++
   enum class open_modes
@@ -304,7 +304,7 @@ color hair = color::red;      // ok: we can explicitly access the enumerators
 peppers p2 = peppers::red;    // ok: using red from peppers
 ```
 
-默认情况下，枚举值从0开始，依次加1。也可以直接为枚举成员指定特定的值。
+默认情况下，枚举值从 0 开始，依次加 1。也可以直接为枚举成员指定特定的值。
 
 ```c++
 enum class intTypes
@@ -314,7 +314,7 @@ enum class intTypes
 };
 ```
 
-枚举值可以不唯一。如果没有显式提供初始值，则当前枚举成员的值等于之前枚举成员的值加1。
+枚举值可以不唯一。如果没有显式提供初始值，则当前枚举成员的值等于之前枚举成员的值加 1。
 
 枚举成员是`const`的，因此在初始化枚举成员时提供的初始值必须是常量表达式。
 
@@ -339,7 +339,7 @@ int i = color::red;     // ok: unscoped enumerator implicitly converted to int
 int j = peppers::red;   // error: scoped enumerations are not implicitly converted
 ```
 
-枚举是由某种整数类型表示的。C++11中，可以在枚举名字后面指定用来表示枚举成员的整型类型。
+枚举是由某种整数类型表示的。C++11 中，可以在枚举名字后面指定用来表示枚举成员的整型类型。
 
 ```c++
 enum intValues : unsigned long long
@@ -350,7 +350,7 @@ enum intValues : unsigned long long
 
 如果没有指定枚举的潜在类型，则默认情况下限定作用域的枚举成员类型是`int`。不限定作用域的枚举成员不存在默认类型。
 
-C++11中可以提前声明枚举。枚举的前置声明必须指定（无论隐式或显式）其成员的类型。
+C++11 中可以提前声明枚举。枚举的前置声明必须指定（无论隐式或显式）其成员的类型。
 
 ```c++
 // forward declaration of unscoped enum named intValues
@@ -508,7 +508,7 @@ class TextQuery::QueryResult
 
 联合（union）是一种特殊的类。一个联合可以有多个数据成员，但是在任意时刻只有一个数据成员可以有值。给联合的某个成员赋值之后，其他成员会变为未定义状态。分配给联合对象的存储空间至少要能容纳它的最大数据成员。
 
-联合不能包含引用类型的成员。在C++11中，含有构造函数或析构函数的类类型也可以作为联合的成员类型。
+联合不能包含引用类型的成员。在 C++11 中，含有构造函数或析构函数的类类型也可以作为联合的成员类型。
 
 联合可以为其成员指定`public`、`protected`和`private`等保护标记。默认情况下，联合的成员都是公有的。
 
@@ -556,7 +556,7 @@ ival = 42;    // that object now holds the value 42
 
 匿名联合不能包含`protected`和`private`成员，也不能定义成员函数。
 
-C++的早期版本规定，在联合中不能含有定义了构造函数或拷贝控制成员的类类型成员。C++11取消了该限制。但是如果联合的成员类型定义了自己的构造函数或拷贝控制成员，该联合的用法会比只含有内置类型成员的联合复杂得多。
+C++的早期版本规定，在联合中不能含有定义了构造函数或拷贝控制成员的类类型成员。C++11 取消了该限制。但是如果联合的成员类型定义了自己的构造函数或拷贝控制成员，该联合的用法会比只含有内置类型成员的联合复杂得多。
 
 - 当联合只包含内置类型的成员时，可以使用普通的赋值语句改变联合的值。但是如果想将联合的值改为类类型成员对应的值，或者将类类型成员的值改为一个其他值，则必须构造或析构该类类型的成员。
 - 当联合只包含内置类型的成员时，编译器会按照成员顺序依次合成默认构造函数或拷贝控制成员。但是如果联合含有类类型成员，并且该类型自定义了默认构造函数或拷贝控制成员，则编译器会为该联合合成对应的版本并将其声明为删除的。
@@ -639,7 +639,7 @@ struct Descriptor
 }
 ```
 
-定义位域时建议结合`#pragma pack`指令将结构体对齐值修改为1，防止数据结构错位。
+定义位域时建议结合`#pragma pack`指令将结构体对齐值修改为 1，防止数据结构错位。
 
 ```c++
 // 保存原始对齐值，设置新对齐
@@ -655,7 +655,7 @@ struct Descriptor
 
 如果可能的话，类内部连续定义的位域会压缩在同一整数的相邻位，从而提供存储压缩。
 
-访问位域的方式与访问类的其他数据成员的方式类似。操作超过1位的位域时，通常会使用内置的位运算符。
+访问位域的方式与访问类的其他数据成员的方式类似。操作超过 1 位的位域时，通常会使用内置的位运算符。
 
 ```c++
 File &File::open(File::modes m)
@@ -668,7 +668,7 @@ File &File::open(File::modes m)
 }
 ```
 
-### volatile限定符（volatile Qualifier）
+### volatile 限定符（volatile Qualifier）
 
 当对象的值可能在程序的控制或检测之外被改变时（如子线程），应该将该对象声明为`volatile`。关键字`volatile`的作用是告知编译器不要优化这样的对象。
 
@@ -717,7 +717,7 @@ public:
 
 ### 链接指示：extern "C"（Linkage Directives：extern "C"）
 
-C++程序有时需要调用使用其他语言编写的函数，最常见的是调用C语言函数。其他语言中的函数名字也必须在C++中进行声明。对于这些函数，编译器检查其调用的方式与处理普通C++函数的方式相同，但是生成的代码有所区别。C++使用链接指示指出任意非C++函数所用的语言。
+C++程序有时需要调用使用其他语言编写的函数，最常见的是调用 C 语言函数。其他语言中的函数名字也必须在 C++中进行声明。对于这些函数，编译器检查其调用的方式与处理普通 C++函数的方式相同，但是生成的代码有所区别。C++使用链接指示指出任意非 C++函数所用的语言。
 
 链接指示有单个形式和复合形式，其不能出现在类定义或函数定义的内部。同样的链接指示必须出现在函数的每个声明处。
 
@@ -745,7 +745,7 @@ extern "C"
 }
 ```
 
-C++从C语言继承的标准库函数可以定义成C函数，但并非必须。选择使用C还是C++实现C标准库，是由每个C++实现决定的。
+C++从 C 语言继承的标准库函数可以定义成 C 函数，但并非必须。选择使用 C 还是 C++实现 C 标准库，是由每个 C++实现决定的。
 
 编写函数所使用的语言是函数类型的一部分。因此对于使用链接指示定义的函数来说，它的每个声明都必须使用相同的链接指示，而且指向这类函数的指针也必须使用与函数本身一样的链接指示。
 
@@ -754,7 +754,7 @@ C++从C语言继承的标准库函数可以定义成C函数，但并非必须。
 extern "C" void (*pf)(int);
 ```
 
-指向C函数的指针与指向C++函数的指针是不同的类型，两者不能相互赋值或初始化（少数C++编译器支持这种赋值操作并将其视为对语言的扩展，但是从严格意义上来说它是非法的）。
+指向 C 函数的指针与指向 C++函数的指针是不同的类型，两者不能相互赋值或初始化（少数 C++编译器支持这种赋值操作并将其视为对语言的扩展，但是从严格意义上来说它是非法的）。
 
 ```c++
 void (*pf1)(int);   // points to a C++ function
@@ -762,7 +762,7 @@ extern "C" void (*pf2)(int);    // points to a C function
 pf1 = pf2;   // error: pf1 and pf2 have different types
 ```
 
-链接指示不仅对函数本身有效，对作为返回类型或形参类型的函数指针也有效。所以如果希望给C++函数传入指向C函数的指针，必须使用类型别名。
+链接指示不仅对函数本身有效，对作为返回类型或形参类型的函数指针也有效。所以如果希望给 C++函数传入指向 C 函数的指针，必须使用类型别名。
 
 ```c++
 // f1 is a C function; its parameter is a pointer to a C function
@@ -773,14 +773,14 @@ extern "C" typedef void FC(int);
 void f2(FC *);
 ```
 
-通过链接指示定义函数，可以令C++函数在其他语言编写的程序中可用。编译器会为该函数生成适合于指定语言的代码。
+通过链接指示定义函数，可以令 C++函数在其他语言编写的程序中可用。编译器会为该函数生成适合于指定语言的代码。
 
 ```c++
 // the calc function can be called from C programs
 extern "C" double calc(double dparm) { /* ... */ }
 ```
 
-如果需要在C和C++中编译同一个源文件，可以在编译C++版本时使用预处理定义`__cplusplus`。
+如果需要在 C 和 C++中编译同一个源文件，可以在编译 C++版本时使用预处理定义`__cplusplus`。
 
 ```c++
 # ifdef __cplusplus
@@ -790,7 +790,7 @@ extern "C"
 int strcmp(const char*, const char*);
 ```
 
-链接指示与重载函数的相互作用依赖于目标语言。C语言不支持函数重载，所以一个C链接指示只能用于说明一组重载函数中的某一个。
+链接指示与重载函数的相互作用依赖于目标语言。C 语言不支持函数重载，所以一个 C 链接指示只能用于说明一组重载函数中的某一个。
 
 ```c++
 // error: two extern "C" functions with the same name

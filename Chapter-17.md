@@ -1,12 +1,12 @@
-# 第17章 标准库特殊设施
+# 第 17 章 标准库特殊设施(Specialized Library Facilities)
 
-## tuple类型（The tuple Type）
+## tuple 类型（The tuple Type）
 
 `tuple`是类似`pair`的模板，定义在头文件*tuple*中。与`pair`不同，`tuple`可以有任意数量的成员。如果希望将一些数据组合成单一对象，但又不想定义新数据结构时，可以使用`tuple`（“快速而随意”的数据结构）。
 
 ![17-1](Images/17-1.png)
 
-### 定义和初始化tuple（Defining and Initializing tuples）
+### 定义和初始化 tuple（Defining and Initializing tuples）
 
 定义`tuple`时需要指定每个成员的类型。创建`tuple`对象时，可以使用`tuple`的默认构造函数，它会对每个成员进行值初始化。或者给每个成员提供初始值。包含初始值的构造函数是`explicit`的，因此必须使用直接初始化语法。
 
@@ -50,21 +50,21 @@ tuple_element<1, trans>::type cnt = get<1>(item);    // cnt is an int
 
 由于`tuple`定义了`<`和`==`运算符，因此`tuple`序列可以被传递给算法，无序容器的关键字也可以使用`tuple`类型。
 
-### 使用tuple返回多个值（Using a tuple to Return Multiple Values）
+### 使用 tuple 返回多个值（Using a tuple to Return Multiple Values）
 
 `tuple`的一个常见用途是从一个函数返回多个值。
 
-## bitset类型（The bitset Type）
+## bitset 类型（The bitset Type）
 
 标准库在头文件*bitset*中定义了`bitset`类，用于处理二进制位。`bitset`可以处理超过最长整型类型大小的位集合。
 
-### 定义和初始化bitset（Defining and Initializing bitsets）
+### 定义和初始化 bitset（Defining and Initializing bitsets）
 
 `bitset`类是一个模板，类似`array`，具有固定的大小。定义一个`bitset`时需要指明它包含的二进制位数。
 
 ![17-2](Images/17-2.png)
 
-使用一个整型值初始化`bitset`时，此值会被转换为`unsigned long long`类型并被当作位模式处理。`bitset`中的二进制位就是此模式的副本。如果`bitset`的大小大于`unsigned long long`中的二进制位数，剩余的高位会被置为0。如果`bitset`的大小小于`unsigned long long`中的二进制位数，则只使用给定值的低位部分。
+使用一个整型值初始化`bitset`时，此值会被转换为`unsigned long long`类型并被当作位模式处理。`bitset`中的二进制位就是此模式的副本。如果`bitset`的大小大于`unsigned long long`中的二进制位数，剩余的高位会被置为 0。如果`bitset`的大小小于`unsigned long long`中的二进制位数，则只使用给定值的低位部分。
 
 ```c++
 // bitvec1 is smaller than the initializer; high-order bits from the initializer are discarded
@@ -75,7 +75,7 @@ bitset<20> bitvec2(0xbeef);     // bits are 00001011111011101111
 bitset<128> bitvec3(~0ULL);     // bits 0 ... 63 are one; 63 ... 127 are zero
 ```
 
-可以使用`string`或字符数组指针来初始化`bitset`，字符直接表示位模式。使用字符串表示数时，字符串中下标最小的字符对应`bitset`的高位。如果`string`包含的字符数比`bitset`少，则`bitset`的高位被置为0。
+可以使用`string`或字符数组指针来初始化`bitset`，字符直接表示位模式。使用字符串表示数时，字符串中下标最小的字符对应`bitset`的高位。如果`string`包含的字符数比`bitset`少，则`bitset`的高位被置为 0。
 
 ```c++
 bitset<32> bitvec4("1100"); // bits 2 and 3 are 1, all others are 0
@@ -86,7 +86,7 @@ bitset<32> bitvec6(str, str.size()-4);   // use last four characters
 
 ![17-3](Images/17-3.png)
 
-### bitset操作（Operations on bitsets）
+### bitset 操作（Operations on bitsets）
 
 `bitset`操作：
 
@@ -104,15 +104,15 @@ cout << "ulong = " << ulong << endl;
 `bitset`的输入运算符从输入流读取字符，保存到临时的`string`对象中。遇到下列情况时停止读取：
 
 - 读取的字符数达到对应`bitset`的大小。
-- 遇到不是1和0的字符。
+- 遇到不是 1 和 0 的字符。
 - 遇到文件结尾。
 - 输入出现错误。
 
-读取结束后用临时`string`对象初始化`bitset`。如果读取的字符数小于`bitset`的大小，则`bitset`的高位被置为0。
+读取结束后用临时`string`对象初始化`bitset`。如果读取的字符数小于`bitset`的大小，则`bitset`的高位被置为 0。
 
 ## 正则表达式（Regular Expressions）
 
-正则表达式是一种描述字符序列的方法。C++11新标准增加了正则表达式库（RE库），定义在头文件*regex*中，包含多个组件。
+正则表达式是一种描述字符序列的方法。C++11 新标准增加了正则表达式库（RE 库），定义在头文件*regex*中，包含多个组件。
 
 ![17-5](Images/17-5.png)
 
@@ -138,26 +138,26 @@ if (regex_search(test_str, results, r))     // if there is a match
 
 ### 使用正则表达式库（Using the Regular Expression Library）
 
-默认情况下，`regex`使用的正则表达式语言是ECMAScript。
+默认情况下，`regex`使用的正则表达式语言是 ECMAScript。
 
-定义一个`regex`或者对一个`regex`调用`assign`为其赋新值时，可以指定一些标志来影响`regex`的操作。`ECMAScript`、`basic`、`extended`、`awk`、`grep`和`egrep`这六个标志指定编写正则表达式时所使用的语言。这六个标志中必须设置其中之一，且只能设置一个。默认情况下，`ECMAScript`标志被设置，`regex`会使用ECMA-262规范，这也是很多Web浏览器使用的正则表达式语言。
+定义一个`regex`或者对一个`regex`调用`assign`为其赋新值时，可以指定一些标志来影响`regex`的操作。`ECMAScript`、`basic`、`extended`、`awk`、`grep`和`egrep`这六个标志指定编写正则表达式时所使用的语言。这六个标志中必须设置其中之一，且只能设置一个。默认情况下，`ECMAScript`标志被设置，`regex`会使用 ECMA-262 规范，这也是很多 Web 浏览器使用的正则表达式语言。
 
 ![17-7](Images/17-7.png)
 
-正则表达式的语法是否正确是在运行期间解析的。如果正则表达式存在错误，标准库会抛出类型为`regex_error`的异常。除了`what`操作外，`regex_error`还有一个名为`code`的成员，用来返回错误类型对应的数值编码。`code`返回的值是由具体实现定义的。RE库能抛出的标准错误如下，`code`返回对应错误的编号（从0开始）。
+正则表达式的语法是否正确是在运行期间解析的。如果正则表达式存在错误，标准库会抛出类型为`regex_error`的异常。除了`what`操作外，`regex_error`还有一个名为`code`的成员，用来返回错误类型对应的数值编码。`code`返回的值是由具体实现定义的。RE 库能抛出的标准错误如下，`code`返回对应错误的编号（从 0 开始）。
 
 ![17-8](Images/17-8.png)
 
 正则表达式在程序运行时才编译，这是一个非常慢的操作。因此构造一个`regex`对象或者给一个已经存在的`regex`赋值是很耗时间的。为了最小化这种开销，应该尽量避免创建不必要的`regex`。特别是在循环中使用正则表达式时，应该在循环体外部创建`regex`对象。
 
-RE库为不同的输入序列都定义了对应的类型。使用时RE库类型必须与输入类型匹配。
+RE 库为不同的输入序列都定义了对应的类型。使用时 RE 库类型必须与输入类型匹配。
 
 - `regex`类保存`char`类型的正则表达式；`wregex`保存`wchar_t`类型的正则表达式。
 - `smatch`表示`string`类型的输入序列；`cmatch`表示字符数组类型的输入序列；`wsmatch`表示`wstring`类型的输入序列；`wcmatch`表示宽字符数组类型的输入序列。
 
 ![17-9](Images/17-9.png)
 
-### 匹配与Regex迭代器类型（The Match and Regex Iterator Types）
+### 匹配与 Regex 迭代器类型（The Match and Regex Iterator Types）
 
 `regex`迭代器是一种迭代器适配器，它被绑定到一个输入序列和一个`regex`对象上，每种输入类型都有对应的迭代器类型。
 
@@ -213,27 +213,27 @@ for (sregex_iterator it(file.begin(), file.end(), r), end_it;
 regex r("([[:alnum:]]+)\\.(cpp|cxx|cc)$", regex::icase);
 ```
 
-匹配对象除了提供匹配整体的相关信息外，还可以用来访问模式中的每个子表达式。子匹配是按位置来访问的，第一个子匹配位置为0，表示整个模式对应的匹配，随后是每个子表达式对应的匹配。
+匹配对象除了提供匹配整体的相关信息外，还可以用来访问模式中的每个子表达式。子匹配是按位置来访问的，第一个子匹配位置为 0，表示整个模式对应的匹配，随后是每个子表达式对应的匹配。
 
 子表达式的一个常见用途是验证必须匹配特定格式的数据，如电话号码和电子邮箱地址。
 
-ECMAScript正则表达式语言的一些特性：
+ECMAScript 正则表达式语言的一些特性：
 
 - 模式`[[:alnum:]]`匹配任意字母。
 - 符号`+`表示匹配一个或多个字符。
 - 符号`*`表示匹配零个或多个字符。
-- `\{d}`表示单个数字，`\{d}{n}`表示一个n个数字的序列。
+- `\{d}`表示单个数字，`\{d}{n}`表示一个 n 个数字的序列。
 - 在方括号中的字符集合表示匹配这些字符中的任意一个。
 - 后接`?`的组件是可选的。
-- 类似C++，ECMAScript使用反斜线进行转义。由于模式包含括号，而括号是ECMAScript中的特殊字符，因此需要用`\(`和`\)`来表示括号是模式的一部分。
+- 类似 C++，ECMAScript 使用反斜线进行转义。由于模式包含括号，而括号是 ECMAScript 中的特殊字符，因此需要用`\(`和`\)`来表示括号是模式的一部分。
 
-因为反斜线`\`是C++中的特殊字符，所以在模式中使用`\`时，需要一个额外的反斜线进行转义。
+因为反斜线`\`是 C++中的特殊字符，所以在模式中使用`\`时，需要一个额外的反斜线进行转义。
 
 子匹配操作：
 
 ![17-14](Images/17-14.png)
 
-### 使用regex_replace（Using regex_replace）
+### 使用 regex_replace（Using regex_replace）
 
 正则表达式替换操作：
 
@@ -254,7 +254,7 @@ cout << regex_replace(s, r, fmt2, format_no_copy) << endl;
 
 ## 随机数（Random Numbers）
 
-在新标准出现之前，C和C++都依赖于一个简单的C库函数`rand`来生成随机数。该函数生成均匀分布的伪随机整数，每个随机数的范围在0和一个系统相关的最大值（至少为32767）之间。
+在新标准出现之前，C 和 C++都依赖于一个简单的 C 库函数`rand`来生成随机数。该函数生成均匀分布的伪随机整数，每个随机数的范围在 0 和一个系统相关的最大值（至少为 32767）之间。
 
 头文件*random*中的随机数库定义了一组类来解决`rand`函数的一些问题：随机数引擎类（random-number engines）可以生成`unsigned`随机数序列；随机数分布类（random-number distribution classes）使用引擎类生成指定类型、范围和概率分布的随机数。
 
@@ -297,7 +297,7 @@ for (size_t i = 0; i < 10; ++i)
 
 随机数发生器指分布对象和引擎对象的组合。
 
-`rand`函数的生成范围在0到`RAND_MAX`之间，随机数引擎生成的`unsigned`整数在一个系统定义的范围内。一个引擎类型的范围可以通过调用该类型对象的`min`和`max`成员来获得。
+`rand`函数的生成范围在 0 到`RAND_MAX`之间，随机数引擎生成的`unsigned`整数在一个系统定义的范围内。一个引擎类型的范围可以通过调用该类型对象的`min`和`max`成员来获得。
 
 即使随机数发生器生成的数看起来是随机的，但对于一个给定的发生器，每次运行程序时它都会返回相同的数值序列。
 
@@ -367,23 +367,23 @@ for (size_t i = 0; i < 10; ++i)
 uniform_real_distribution<> u(0,1);    // generates double by default
 ```
 
-`bernouilli_distribution`类型是一个普通类，而非模板。该分布返回一个`bool`值，其中`true`的概率是一个常数，默认为0.5。
+`bernouilli_distribution`类型是一个普通类，而非模板。该分布返回一个`bool`值，其中`true`的概率是一个常数，默认为 0.5。
 
 由于引擎会返回相同的随机数序列，因此需要在循环中使用引擎时，必须在循环体外定义引擎对象。否则每次循环都会创建新引擎，生成相同序列。同样，分布对象也需要保持运行状态，也必须在循环体外定义。
 
-## IO库再探（The IO Library Revisited）
+## IO 库再探（The IO Library Revisited）
 
 ### 格式化输入与输出（Formatted Input and Output）
 
-除了条件状态外，每个`iostream`对象还维护着一个格式状态来控制IO格式化细节。
+除了条件状态外，每个`iostream`对象还维护着一个格式状态来控制 IO 格式化细节。
 
 标准库定义了一组操纵符（manipulator）来修改流的格式状态。操纵符是一个函数或对象，会影响流的状态，并能作为输入和输出运算符的运算对象。类似输入和输出运算符，操纵符也返回它所处理的流对象。
 
 操纵符用于两大类输出控制：控制数值的输出格式，控制补白的数量和位置。
 
-操纵符改变流的格式状态时，通常改变后的状态对所有后续IO都生效。大多数改变格式状态的操纵符都是设置/复原成对的，一个操纵符用于设置新格式，另一个用于恢复正常格式。
+操纵符改变流的格式状态时，通常改变后的状态对所有后续 IO 都生效。大多数改变格式状态的操纵符都是设置/复原成对的，一个操纵符用于设置新格式，另一个用于恢复正常格式。
 
-默认情况下，`bool`值输出为1（`true`）或0（`false`）。对流使用`boolalpha`操纵符可以输出`true`或`false`，还原格式时使用`noboolalpha`操纵符。
+默认情况下，`bool`值输出为 1（`true`）或 0（`false`）。对流使用`boolalpha`操纵符可以输出`true`或`false`，还原格式时使用`noboolalpha`操纵符。
 
 ```c++
 cout << "default bool values: " << true << " " << false
@@ -468,7 +468,7 @@ printed in hexadecimal: 0X14 0X400
 
 默认情况下，精度控制输出的数字总位数。输出时，浮点值按照当前精度四舍五入而非截断。
 
-调用IO对象的`precision`成员或者使用`setprecision`操纵符可以改变精度。
+调用 IO 对象的`precision`成员或者使用`setprecision`操纵符可以改变精度。
 
 - `precision`成员是重载的。一个版本接受一个`int`值，将精度设置为此值，并返回旧精度值。另一个版本不接受参数，直接返回当前精度值。
 - `setprecision`操纵符接受一个参数来设置精度。
@@ -530,7 +530,7 @@ use defaults: 141.421
 
 `scientific`、`fixed`和`hexfloat`操纵符会改变流的精度含义。执行这些操纵符后，精度控制的将是小数点后面的数字位数，而默认情况下控制的是数字总位数。
 
-默认情况下，当浮点值的小数部分为0时，不显示小数点。使用`showpoint`操纵符可以强制输出小数点，`noshowpoint`操纵符还原默认行为。
+默认情况下，当浮点值的小数部分为 0 时，不显示小数点。使用`showpoint`操纵符可以强制输出小数点，`noshowpoint`操纵符还原默认行为。
 
 ```c++
 cout << 10.0 << endl;        // prints 10
@@ -604,13 +604,13 @@ cin >> skipws;      // reset cin to the default state so that it discards whites
 
 ### 未格式化的输入/输出操作（Unformatted Input/Output Operations）
 
-标准库提供了一组低层操作，支持未格式化IO（unformatted IO）。这些操作可以将一个流当作无解释的字节序列来处理。
+标准库提供了一组低层操作，支持未格式化 IO（unformatted IO）。这些操作可以将一个流当作无解释的字节序列来处理。
 
 一些未格式化操作每次处理流的一个字节，它们会读取而不是忽略空白符。
 
 ![17-22](Images/17-22.png)
 
-使用未格式化IO操作`get`和`put`可以读取和写入一个字符。
+使用未格式化 IO 操作`get`和`put`可以读取和写入一个字符。
 
 ```c++
 char ch;
@@ -646,7 +646,7 @@ while ((ch = cin.get()) != EOF)
 
 当`get`返回`EOF`时，该值会先被转换为`unsigned char`，之后提升得到的`int`值与`EOF`值不再相等，因此循环永远不会停止。
 
-一些未格式化IO操作一次处理大块数据，这些操作可以提高程序执行速度，但需要自己分配并管理用来保存和提取数据的字符数组。
+一些未格式化 IO 操作一次处理大块数据，这些操作可以提高程序执行速度，但需要自己分配并管理用来保存和提取数据的字符数组。
 
 ![17-23](Images/17-23.png)
 
@@ -660,7 +660,7 @@ while ((ch = cin.get()) != EOF)
 
 读取流数据时的一个常见错误是忘记从流中删除分隔符。
 
-一些操作可能从输入流中读取了未知个数的字节，使用`gcount`函数可以确定上一次未格式化输入操作读取了多少字符。`gcount`函数应该在任何后续未格式化输入操作前调用，将字符退回流的操作也属于未格式化输入操作。如果在调用`gcount`前使用了`peek`、`unget`或`putback`操作，则`gcount`的返回值为0。
+一些操作可能从输入流中读取了未知个数的字节，使用`gcount`函数可以确定上一次未格式化输入操作读取了多少字符。`gcount`函数应该在任何后续未格式化输入操作前调用，将字符退回流的操作也属于未格式化输入操作。如果在调用`gcount`前使用了`peek`、`unget`或`putback`操作，则`gcount`的返回值为 0。
 
 使用`clear`、`ignore`和`sync`函数可以清空输入流中的数据。读到非法字符时，输入流将处于错误状态。为了继续获取输入数据，先调用`clear`函数重置流的错误标记。再调用`ignore`清空流中指定大小的数据，或者调用`sync`直接清空流中所有数据。`numeric_limits<streamsize>::max()`返回流的缓冲区大小。
 
@@ -678,9 +678,9 @@ cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
 ### 流随机访问（Random Access to a Stream）
 
-随机IO本质上是依赖于操作系统的。
+随机 IO 本质上是依赖于操作系统的。
 
-为了支持随机访问，IO类型通过维护一个标记来确定下一次读写操作的位置。`seek`函数用于移动标记，`tell`函数用于获取标记。标准库实际上定义了两对`seek`和`tell`函数，一对用于输入流（后缀为`g`，表示get），一对用于输出流（后缀为`p`，表示put）。
+为了支持随机访问，IO 类型通过维护一个标记来确定下一次读写操作的位置。`seek`函数用于移动标记，`tell`函数用于获取标记。标准库实际上定义了两对`seek`和`tell`函数，一对用于输入流（后缀为`g`，表示 get），一对用于输出流（后缀为`p`，表示 put）。
 
 ![17-24](Images/17-24.png)
 
