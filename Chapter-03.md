@@ -1,6 +1,6 @@
 # 第 3 章 字符串、向量和数组
 
-## 3.1.1 命名空间的 using 声明（Namespace using Declarations）
+## 3.1 命名空间的 using 声明（Namespace using Declarations）
 
 使用`using`声明后就无须再通过专门的前缀去获取所需的名字了。
 
@@ -12,11 +12,11 @@ using std::cout;
 
 头文件中通常不应该包含`using`声明。
 
-## 3.1.2 标准库类型 string（Library string Type）
+## 3.2 标准库类型 string（Library string Type）
 
 标准库类型`string`表示可变长的字符序列，定义在头文件*string*中。
 
-### 3.1.3 定义和初始化 string 对象（Defining and Initializing strings）
+### 3.2.1 定义和初始化 string 对象（Defining and Initializing strings）
 
 初始化`string`的方式：
 
@@ -24,7 +24,7 @@ using std::cout;
 
 如果使用等号初始化一个变量，实际上执行的是拷贝初始化（copy initialization），编译器把等号右侧的初始值拷贝到新创建的对象中去。如果不使用等号，则执行的是直接初始化（direct initialization）。
 
-### string 对象上的操作（Operations on strings）
+### 3.2.2 string 对象上的操作（Operations on strings）
 
 `string`的操作：
 
@@ -48,7 +48,7 @@ string s6 = s1 + ", " + "world";    // ok: each + has a string operand
 
 为了与 C 兼容，C++语言中的字符串字面值并不是标准库`string`的对象。
 
-### 处理 string 对象中的字符（Dealing with the Characters in a string）
+### 3.2.3 处理 string 对象中的字符（Dealing with the Characters in a string）
 
 头文件*cctype*中的字符操作函数：
 
@@ -80,7 +80,7 @@ for (auto c : str)      // for every char in str
 
 C++标准并不要求标准库检测下标是否合法。编程时可以把下标的类型定义为相应的`size_type`，这是一种无符号数，可以确保下标不会小于 0，此时代码只需要保证下标小于`size`的值就可以了。另一种确保下标合法的有效手段就是使用范围`for`语句。
 
-## 标准库类型 vector（Library vector Type）
+## 3.3 标准库类型 vector（Library vector Type）
 
 标准库类型`vector`表示对象的集合，也叫做容器（container），定义在头文件*vector*中。`vector`中所有对象的类型都相同，每个对象都有一个索引与之对应并用于访问该对象。
 
@@ -90,7 +90,7 @@ C++标准并不要求标准库检测下标是否合法。编程时可以把下�
 
 在早期的 C++标准中，如果`vector`的元素还是`vector`，定义时必须在外层`vector`对象的右尖括号和其元素类型之间添加一个空格，如`vector<vector<int> >`。但是在 C++11 标准中，可以直接写成`vector<vector<int>>`，不需要添加空格。
 
-### 定义和初始化 vector 对象（Defining and Initializing vectors）
+### 3.3.1 定义和初始化 vector 对象（Defining and Initializing vectors）
 
 初始化`vector`对象的方法：
 
@@ -100,7 +100,7 @@ C++标准并不要求标准库检测下标是否合法。编程时可以把下�
 
 可以只提供`vector`对象容纳的元素数量而省略初始值，此时会创建一个值初始化（value-initialized）的元素初值，并把它赋给容器中的所有元素。这个初值由`vector`对象中的元素类型决定。
 
-### 向 vector 对象中添加元素（Adding Elements to a vector）
+### 3.3.2 向 vector 对象中添加元素（Adding Elements to a vector）
 
 `push_back`函数可以把一个值添加到`vector`的尾端。
 
@@ -113,7 +113,7 @@ for (int i = 0; i != 100; ++i)
 
 范围`for`语句体内不应该改变其所遍历序列的大小。
 
-### 其他 vector 操作（Other vector Operations）
+### 3.3.3 其他 vector 操作（Other vector Operations）
 
 `vector`支持的操作：
 
@@ -137,11 +137,11 @@ for (decltype(ivec.size()) ix = 0; ix != 10; ++ix)
 }
 ```
 
-## 迭代器介绍（Introducing Iterators）
+## 3.4 迭代器介绍（Introducing Iterators）
 
 迭代器的作用和下标类似，但是更加通用。所有标准库容器都可以使用迭代器，但是其中只有少数几种同时支持下标运算符。
 
-### 使用迭代器（Using Iterators）
+### 3.4.1 使用迭代器（Using Iterators）
 
 定义了迭代器的类型都拥有`begin`和`end`两个成员函数。`begin`函数返回指向第一个元素的迭代器，`end`函数返回指向容器“尾元素的下一位置（one past the end）”的迭代器，通常被称作尾后迭代器（off-the-end iterator）或者简称为尾迭代器（end iterator）。尾后迭代器仅是个标记，表示程序已经处理完了容器中的所有元素。迭代器一般为`iterator`类型。
 
@@ -175,7 +175,7 @@ C++11 新增了`cbegin`和`cend`函数，不论`vector`或`string`对象是否�
 
 任何可能改变容器对象容量的操作，都会使该对象的迭代器失效。
 
-### 迭代器运算（Iterator Arithmetic）
+### 3.4.2 迭代器运算（Iterator Arithmetic）
 
 `vector`和`string`迭代器支持的操作：
 
@@ -183,13 +183,13 @@ C++11 新增了`cbegin`和`cend`函数，不论`vector`或`string`对象是否�
 
 `difference_type`类型用来表示两个迭代器间的距离，这是一种带符号整数类型。
 
-## 数组（Arrays）
+## 3.5 数组（Arrays）
 
 数组类似`vector`，但数组的大小确定不变，不能随意向数组中添加元素。
 
 如果不清楚元素的确切个数，应该使用`vector`。
 
-### 定义和初始化内置数组（Defining and Initializing Built-in Arrays）
+### 3.5.1 定义和初始化内置数组（Defining and Initializing Built-in Arrays）
 
 数组是一种复合类型，声明形式为`a[d]`，其中*a*是数组名称，*d*是数组维度（dimension）。维度必须是一个常量表达式。
 
@@ -228,13 +228,13 @@ int (*Parray)[10] = &arr;   // Parray points to an array of ten ints
 int (&arrRef)[10] = arr;    // arrRef refers to an array of ten ints
 ```
 
-### 访问数组元素（Accessing the Elements of an Array）
+### 3.5.2 访问数组元素（Accessing the Elements of an Array）
 
 数组下标通常被定义成`size_t`类型，这是一种机器相关的无符号类型，可以表示内存中任意对象的大小。`size_t`定义在头文件*cstddef*中。
 
 大多数常见的安全问题都源于缓冲区溢出错误。当数组或其他类似数据结构的下标越界并试图访问非法内存区域时，就会产生此类错误。
 
-### 指针和数组（Pointers and Arrays）
+### 3.5.3 指针和数组（Pointers and Arrays）
 
 在大多数表达式中，使用数组类型的对象其实是在使用一个指向该数组首元素的指针。
 
@@ -273,7 +273,7 @@ int *last = end(ia);    // pointer one past the last element in ia
 
 标准库类型限定使用的下标必须是无符号类型，而内置的下标运算无此要求。
 
-### C 风格字符串（C-Style Character Strings）
+### 3.5.4 C 风格字符串（C-Style Character Strings）
 
 C 风格字符串是将字符串存放在字符数组中，并以空字符结束（null terminated）。这不是一种类型，而是一种为了表达和使用字符串而形成的书写方法。
 
@@ -285,7 +285,7 @@ C 风格字符串的函数：
 
 C 风格字符串函数不负责验证其参数的正确性，传入此类函数的指针必须指向以空字符作为结尾的数组。
 
-### 与旧代码的接口（Interfacing to Older Code）
+### 3.5.5 与旧代码的接口（Interfacing to Older Code）
 
 任何出现字符串字面值的地方都可以用以空字符结束的字符数组来代替：
 
@@ -313,7 +313,7 @@ vector<int> ivec(begin(int_arr), end(int_arr));
 
 在新版本的 C++程序中应该尽量使用`vector`、`string`和迭代器，避免使用内置数组、C 风格字符串和指针。
 
-## 多维数组（Multidimensional Arrays）
+## 3.6 多维数组（Multidimensional Arrays）
 
 C++中的多维数组其实就是数组的数组。当一个数组的元素仍然是数组时，通常需要用两个维度定义它：一个维度表示数组本身的大小，另一个维度表示其元素（也是数组）的大小。通常把二维数组的第一个维度称作行，第二个维度称作列。
 
