@@ -3,6 +3,11 @@
 Fork from: https://github.com/czs108/Cpp-Primer-5th-Notes-CN
 
 ```bash
-cat metadata.txt toc.md Chapter-*.md > cpp.md
-pandoc -s --toc-depth=2 -o cpp.epub metadata.txt cpp.md
+./build.sh
+```
+
+## build with toc
+
+```bash
+cat metadata.txt toc.md about.md Chapter-*.md > cpp.md
 ```
